@@ -124,7 +124,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Bacasime Antique", serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -552,4 +552,28 @@ video {
 
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
+}
+
+:root {
+  --color-primary: 153, 250, 193;
+  --color-secondary: 93, 165, 88;
+  --color-vertfonce: 34, 84, 48;
+  --text-color-primary: 0, 0, 0;
+  --text-color-secondary: 101, 100, 100;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-primary {
+  background-color: rgb(var(--color-primary));
+}
+
+.text-vertfonce {
+  color: rgb(var(--color-vertfonce));
 }
