@@ -1,4 +1,7 @@
 <?php
+session_start();
+session_unset();
+$isLoggedIn = isset($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +39,14 @@
             <h1 class="text-xl text-secondary">BookMarket</h1>
         </div>
 
-        <nav class="flex pr-5 gap-4 w-3/12 justify-end">
+
+     <?php if (!$isLoggedIn): ?>   
+<nav class="flex pr-5 w-3/12 justify-end text-grey">
+    <a href="../back/login.php" >Connexion/S'inscrire</a>
+</nav>
+ <?php else: ?>
+
+        <nav class="flex pr-5 gap-4 w-3/12 justify-end  ">
             <ul class="flex list-none gap-4">
                 <li>
                     <a href="#" aria-label="Voir le panier">
@@ -68,20 +78,22 @@
                 </li>
             </ul>
         </nav>
+        <?php endif; ?>
     </header>
 
 
-    <div class="inline-flex items-center justify-center w-full mt-16">
+<div class="inline-flex items-center justify-between w-full mt-16">
+        
     <!-- Trait à gauche -->
-    <span class="w-32 h-px bg-grey mr-4"></span>
+    <span class="w-3/12 h-px bg-grey ml-4"></span>
 
     <!-- Formulaire de recherche -->
-    <form class="relative" action="search.php" method="get">
+    <form class="flex-1 flex justify-center w-6/12 mx-4 " action="search.php" method="get">
         <input class="border border-grey rounded text-center px-36" type="text" name="query" placeholder="Rechercher..." required>
     </form>
 
     <!-- Trait à droite -->
-    <span class="w-32 h-px bg-grey ml-4"></span>
+    <span class=" w-3/12 h-px bg-grey  mr-4"></span>
 </div>
 
 
