@@ -2,14 +2,16 @@
   "name": "book-market",
   "version": "1.0.0",
   "description": "��#\u0000 \u0000B\u0000o\u0000o\u0000k\u0000-\u0000M\u0000a\u0000r\u0000k\u0000e\u0000t\u0000\r\u0000 \u0000",
-  "main": "./back/index.php",
+  "main": "index.js",
  "scripts": {
-  "build:css": "tailwindcss build -i ./front/styles/styles.css -o ./front/styles/output.css --watch"
+  "build": "npx tailwindcss -i ./front/styles/style.css -o ./front/styles/output.css --watch"
 },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
   }
 }

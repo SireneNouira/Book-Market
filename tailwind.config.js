@@ -1,21 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [ "./back/*.php"],
+  content: [
+    "./back/**/*.php",
+    "./front/**/*.html",
+    "./front/**/*.php", 
+    "./front/**/*.js", 
+    "./front/styles/**/*.css"
+  ],
   theme: {
-    colors: {
-      primary: 'rgb(var(--color-primary))',
-      secondary: 'rgb(var(--color-secondary))',
-      vertfonce: 'rgb(var(--color-vertfonce))',
-      textprimary: 'rgb(var(--text-color-primary))',
-      textsecondary: 'rgb(var(--text-color-secondary))',
-    },
-    extend: {
-      fontFamily: {
-        sans: ['"Bacasime Antique"', 'serif'], 
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
-
 
