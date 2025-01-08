@@ -44,14 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                 // Si c'est un vendeur, ajouter les informations d'entreprise dans la table 'vendeurs'
-                if ($role == 'vendeur') {
+                if ($role == 2) {
                     $lastInsertId = $pdo->lastInsertId(); // Récupérer l'ID de l'utilisateur créé
 
-                    $stmt = $pdo->prepare('INSERT INTO vendeurs (id_utilisateur, nom_entreprise, adresse_entreprise) 
-                           VALUES (:id_utilisateur, :nom_entreprise, :adresse_entreprise)');
-                    $stmt->bindParam(':id_utilisateur', $lastInsertId);
+                    $stmt = $pdo->prepare('INSERT INTO vendeurs ( nom_entreprise, adresse_entreprise, id_utilisateur) 
+                           VALUES ( :nom_entreprise, :adresse_entreprise, :id_utilisateur)');
+                    
                     $stmt->bindParam(':nom_entreprise', $nomEntreprise);
                     $stmt->bindParam(':adresse_entreprise', $adresseEntreprise);
+                    $stmt->bindParam(':id_utilisateur', $lastInsertId);
                     $stmt->execute();
                 }
                 // Rediriger vers une page et session
@@ -117,10 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Champ supplémentaire pour les vendeurs -->
         <div id="extra-fields" class="extra-fields hidden">
             <label for="nom_entreprise">Nom de l'entreprise :</label>
-            <input type="text" id="nom_entreprise" name="nom_entreprise" required><br>
+            <input type="text" id="nom_entreprise" name="nom_entreprise" ><br>
 
             <label for="adresse_entreprise">Adresse de l'entreprise :</label>
-            <input type="text" id="adresse_entreprise" name="adresse_entreprise" required><br>
+            <input type="text" id="adresse_entreprise" name="adresse_entreprise"><br>
         </div>
 
 

@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --color-primary: 153, 250, 193;
+    --color-opacity: 178, 253, 209;
     --color-secondary: 93, 155, 88;
     --color-vertfonce: 34, 84, 48;
     --text-primary: 0, 0, 0;

@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     colors: {
       main: "rgb(var(--color-primary))",
+      mainopacity: "rgba(var(--color-opacity))",
       secondary: "rgb(var(--color-secondary))",
       vertfonce: "rgb(var(--color-vertfonce))",
       black: "rgb(var(--text-primary))",
