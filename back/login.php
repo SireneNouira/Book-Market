@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_nom'] = $user['nom'];
-
+            $_SESSION['is_logged_in'] = true;
           
             header('Location: ../front/index.php');
             exit;

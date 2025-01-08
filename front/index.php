@@ -1,7 +1,8 @@
 <?php
 session_start();
-session_unset();
+
 $isLoggedIn = isset($_SESSION['user_id']);
+
 ?>
 
 <!DOCTYPE html>
