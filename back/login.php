@@ -1,7 +1,7 @@
 <?php
+include_once '../utils/autoloader.php';
+require '../utils/connect_db.php';
 session_start();
-require 'includes/connect_db.php';
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail = $_POST['mail'];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_nom'] = $user['nom'];
             $_SESSION['is_logged_in'] = true;
           
-            header('Location: ../front/index.php');
+            header('Location: ../public/home.php');
             exit;
         } else {
             $error_message = 'Mot de passe incorrect.';

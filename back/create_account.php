@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'includes/connect_db.php';
+require '../utils/connect_db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../front/styles/output.css" />
     <link rel="stylesheet" href="../front/styles/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap" rel="stylesheet">
-    <script src="../front/script.js"></script>
+    <script src="../public/script.js"></script>
     <title>Create</title>
 </head>
 

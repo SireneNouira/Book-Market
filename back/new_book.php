@@ -1,9 +1,10 @@
 <?php
+include_once '../utils/autoloader.php';
 session_start();
-require '../back/includes/connect_db.php';
+require '../utils/connect_db.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../front/index.php');
+    header('Location: ../public/home.php');
     exit;
 }
 
@@ -96,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $error_message = 'Une erreur est survenue : ' . $e->getMessage();
      }
  }
-
+}
 ?>
 
 <!DOCTYPE html>
