@@ -571,6 +571,10 @@ video {
   margin: 1.75rem;
 }
 
+.m-5 {
+  margin: 1.25rem;
+}
+
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -671,6 +675,10 @@ video {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .list-none {
@@ -825,6 +833,18 @@ video {
 
 .pb-14 {
   padding-bottom: 3.5rem;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
+.pl-9 {
+  padding-left: 2.25rem;
+}
+
+.pl-14 {
+  padding-left: 3.5rem;
 }
 
 .text-center {

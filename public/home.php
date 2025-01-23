@@ -28,7 +28,7 @@ require_once './partials/header.php';
         </div>
 
         <div class=" flex-1 flex justify-center w-6/12 ">
-            <h1 class="text-xl text-secondary">BookMarket</h1>
+            <h1 class="text-3xl text-secondary">BookMarket</h1>
         </div>
 
 
@@ -94,36 +94,59 @@ require_once './partials/header.php';
             <h2 class="text-2xl pl-4 m-7 font-medium">Filtrer</h2>
 
             <article class="border border-grey rounded-sm p-6 text-grey">
-                <ul class="flex flex-col gap-2">
-                    <li>Auteur</li>
-                    <li>eref</li>
-                    <li>frefe</li>
-                    <li>vevef</li>
-                    <li>evvervre</li>
+                <h3 class="text-xl m-5">Auteurs</h3>
+                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
+                    <li>Victor Hugo</li>
+                    <li>Jules Verne</li>
+                    <li>Émile Zola</li>
+                    <li>Honoré de Balzac</li>
+                    <li>Gustave Flaubert</li>
+
                 </ul>
+                <h3 class="text-xl m-5">Genres</h3>
+                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
+                    <li>Fantastique</li>
+                    <li>Science-fiction</li>
+                    <li>Policier</li>
+                    <li>Romance</li>
+                    <li>Horreur</li>
+                    <li>Biographie</li>
+                    <li>Histoire</li>
+                    <li>Aventure</li>
+                    <li>Philosophie</li>
+                    <li>Poésie</li>
+                </ul>
+                <h3 class="text-xl m-5">Etat</h3>
+                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
+                    <li>Neuf</li>
+                    <li>Très bon état</li>
+                    <li>Bon état</li>
+                    <li>État correct</li>
+                </ul>
+                <h3 class="text-xl m-5">Prix</h3>
             </article>
         </div>
 
 
         <div class="w-3/4 pl-20 flex flex-col">
-    <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
-    <div class="flex flex-wrap gap-8">
-        <?php
-        $bookRepository = new BookRepository();
-        $books = $bookRepository->getAllBooks();
+            <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
+            <div class="flex flex-wrap gap-8 cursor-pointer">
+                <?php
+                $bookRepository = new BookRepository();
+                $books = $bookRepository->getAllBooks();
 
-        foreach ($books as $book) {
-        ?>
-            <div class="flex flex-col items-center w-56 gap-2">
-                <img src="<?= $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
-                <h3 class="text-lg font-medium text-center"><?= $book['titre'] ?></h3>
-                <p class="text-md text-gray-600">Prix <br> <?= $book['prix'] ?> €</p>
+                foreach ($books as $book) {
+                ?>
+                    <div class="flex flex-col items-center w-56 gap-2">
+                        <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
+                        <h3 class="text-lg font-medium text-center"><?= $book['titre'] ?></h3>
+                        <p class="text-md text-gray-600">Prix <br> <?= $book['prix'] ?> €</p>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
-        <?php
-        }
-        ?>
-    </div>
-</div>
+        </div>
     </section>
 
 
