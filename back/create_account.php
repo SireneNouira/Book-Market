@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_nom'] = $nom; // Le nom fourni lors de l'inscription
                 $_SESSION['is_logged_in'] = true;
 
-                header('Location: ../front/index.php');
+                header('Location: ../public/home.php');
                 exit;
             }
         }

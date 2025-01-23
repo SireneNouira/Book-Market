@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 
-$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";  // Utilisation d'un paramètre nommé avec PDO
+$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";  
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
