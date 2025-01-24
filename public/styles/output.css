@@ -556,23 +556,37 @@ video {
 
 :root {
   --color-primary: 153, 250, 193;
+  --color-primary-opacity: 153, 250, 193, 0.726;
   --color-opacity: 178, 253, 209;
   --color-secondary: 93, 155, 88;
   --color-vertfonce: 34, 84, 48;
   --text-primary: 0, 0, 0;
   --grey: 122, 122, 122;
+  --white: 255, 255, 255;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .absolute {
   position: absolute;
 }
 
-.m-7 {
-  margin: 1.75rem;
+.left-0 {
+  left: 0px;
+}
+
+.top-0 {
+  top: 0px;
 }
 
 .m-5 {
   margin: 1.25rem;
+}
+
+.m-7 {
+  margin: 1.75rem;
 }
 
 .mx-4 {
@@ -617,6 +631,10 @@ video {
   margin-top: 1.25rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -629,16 +647,20 @@ video {
   display: inline-flex;
 }
 
-.h-64 {
-  height: 16rem;
-}
-
-.h-px {
-  height: 1px;
+.hidden {
+  display: none;
 }
 
 .h-80 {
   height: 20rem;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-px {
+  height: 1px;
 }
 
 .max-h-36 {
@@ -657,8 +679,8 @@ video {
   width: 75%;
 }
 
-.w-48 {
-  width: 12rem;
+.w-56 {
+  width: 14rem;
 }
 
 .w-6\/12 {
@@ -667,10 +689,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-56 {
-  width: 14rem;
 }
 
 .flex-1 {
@@ -725,8 +743,16 @@ video {
   gap: 0.5rem;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
 }
 
 .gap-8 {
@@ -773,8 +799,16 @@ video {
   background-color: rgb(var(--color-primary));
 }
 
+.bg-mainMenu {
+  background-color: rgba(var(--color-primary-opacity));
+}
+
 .bg-mainopacity {
   background-color: rgba(var(--color-opacity));
+}
+
+.bg-white {
+  background-color: rgb(var(--white));
 }
 
 .object-cover {
@@ -799,12 +833,36 @@ video {
   padding-right: 9rem;
 }
 
-.pb-4 {
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 
 .pl-10 {
   padding-left: 2.5rem;
+}
+
+.pl-14 {
+  padding-left: 3.5rem;
 }
 
 .pl-20 {
@@ -823,28 +881,12 @@ video {
   padding-right: 1.25rem;
 }
 
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
 .pt-2 {
   padding-top: 0.5rem;
-}
-
-.pb-7 {
-  padding-bottom: 1.75rem;
-}
-
-.pb-14 {
-  padding-bottom: 3.5rem;
-}
-
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
-.pl-9 {
-  padding-left: 2.25rem;
-}
-
-.pl-14 {
-  padding-left: 3.5rem;
 }
 
 .text-center {
@@ -874,14 +916,6 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
-
-.font-bold {
-  font-weight: 700;
 }
 
 .font-medium {

@@ -18,15 +18,14 @@ require_once './partials/header.php';
 
     <header class="flex justify-between items-center pt-2">
         <div class="pl-5 w-3/12 justify-start">
-            <a href="#" aria-label="Menu">
-                <box-icon name='menu' color='#a0a0a0'>
+            <a href="#" aria-label="Menu" id="menu" class="">
+                <box-icon name="menu" color="#a0a0a0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(160, 160, 160, 1);">
                         <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
                     </svg>
                 </box-icon>
             </a>
         </div>
-
         <div class=" flex-1 flex justify-center w-6/12 ">
             <h1 class="text-3xl text-secondary">BookMarket</h1>
         </div>
@@ -72,6 +71,22 @@ require_once './partials/header.php';
             </nav>
         <?php endif; ?>
     </header>
+<div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+    <a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>
+        <!-- Formulaire de recherche -->
+        <form class="  justify-center hidden" action="search.php" method="get">
+            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
+        </form>
+<ul class="flex flex-col gap-3">
+    <li class="py-2  pl-4 rounded-sm bg-white"><a href="home.php">Nouveautés</a></li>
+    <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
+    <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
+    <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
+    <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/create_account.php">Vendre</a></li>
+    <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
+    <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/logout.php">Se deconnecter</a></li>
+</ul>
+</div>
 
     <section>
         <div class="inline-flex items-center justify-between w-full mt-16">
@@ -137,7 +152,7 @@ require_once './partials/header.php';
 
                 foreach ($books as $book) {
                 ?>
-                    <div class="flex flex-col items-center w-56 gap-2">
+                    <div class="flex flex-col items-center w-56 gap-2 ">
                         <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
                         <h3 class="text-lg font-medium text-center"><?= $book['titre'] ?></h3>
                         <p class="text-md text-gray-600">Prix <br> <?= $book['prix'] ?> €</p>
