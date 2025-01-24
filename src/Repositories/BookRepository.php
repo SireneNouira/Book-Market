@@ -53,17 +53,22 @@ final  class BookRepository extends AbstractRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Récupérer un livre par son id 
-    public function getBookById($id): Book
+// Récupérer un livre par son id 
+    public function getBookById(int $id): ?Book
     {
         $stmt = $this->pdo->prepare('SELECT * FROM livres WHERE id = :id');
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $bookMapper = new BookMapper();
-        return $bookMapper->mapToBook($bookData);
     
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if (!$data) {
+            return null;
+        }
+ 
+        $bookMapper = new BookMapper();
+        return $bookMapper->mapToObject($data);
     }
+    
 
    // Récupérer tous les livres d'un vendeur spécifique par son ID
 public function getBooksByVendeurId(int $idVendeur): array
@@ -73,4 +78,39 @@ public function getBooksByVendeurId(int $idVendeur): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function searchBooks(string $query, int $page = 1, int $resultsPerPage = 10): array
+{
+    $offset = ($page - 1) * $resultsPerPage; // Calcul de l'offset
+    $stmt = $this->pdo->prepare('
+        SELECT * 
+        FROM livres 
+        WHERE titre LIKE :query 
+           OR description LIKE :query 
+        LIMIT :limit OFFSET :offset
+    ');
+
+    // Préparer les paramètres
+    $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+    $stmt->bindValue(':limit', $resultsPerPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+    // Exécuter la requête
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function countBooks(string $query): int
+{
+    $stmt = $this->pdo->prepare('
+        SELECT COUNT(*) as total 
+        FROM livres 
+        WHERE titre LIKE :query 
+           OR description LIKE :query
+    ');
+    $stmt->execute([':query' => '%' . $query . '%']);
+    return (int)$stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+
 }

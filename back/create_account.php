@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $stmt = $pdo->prepare('INSERT INTO vendeurs ( nom_entreprise, adresse_entreprise, id_utilisateur) 
                            VALUES ( :nom_entreprise, :adresse_entreprise, :id_utilisateur)');
-                    
+
                     $stmt->bindParam(':nom_entreprise', $nomEntreprise);
                     $stmt->bindParam(':adresse_entreprise', $adresseEntreprise);
                     $stmt->bindParam(':id_utilisateur', $lastInsertId);
@@ -85,53 +85,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <h2>Inscription</h2>
+    <div class="flex justify-center bg-main shadow-lg">
+        <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
+    </div>
 
-    <?php if (isset($error_message)): ?>
-        <p style="color: red;"><?php echo $error_message; ?></p>
-    <?php endif; ?>
 
-    <!-- Formulaire de création de compte -->
-    <form action="create_account.php" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br>
-
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required><br>
-
-        <label for="telephone">Numéro de téléphone :</label>
-        <input type="text" id="telephone" name="telephone" required><br>
-
-        <label for="mail">Email :</label>
-        <input type="email" id="mail" name="mail" required><br>
-
-        <label for="mot_de_passe">Mot de passe :</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <label for="role">Choisir un rôle :</label>
-        <select id="role" name="role" required onchange="toggleEntrepriseFields()">
-            <!-- toggleEntrepriseFields est le nom de la fonction a executer lorque l'evenement onchange est déclenché -->
-            <option value="acheteur">Acheteur</option>
-            <option value="vendeur">Vendeur</option>
-        </select><br>
-
-        <!-- Champ supplémentaire pour les vendeurs -->
-        <div id="extra-fields" class="extra-fields hidden">
-            <label for="nom_entreprise">Nom de l'entreprise :</label>
-            <input type="text" id="nom_entreprise" name="nom_entreprise" ><br>
-
-            <label for="adresse_entreprise">Adresse de l'entreprise :</label>
-            <input type="text" id="adresse_entreprise" name="adresse_entreprise"><br>
+    <header class="flex justify-between items-center pt-2 ">
+        <div class="pl-5  justify-start">
+            <a href="#" aria-label="Menu" id="menu" class="">
+                <box-icon name="menu" color="#a0a0a0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(160, 160, 160, 1);">
+                        <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+                    </svg>
+                </box-icon>
+            </a>
+        </div>
+        <div class=" flex absolute justify-center w-full">
+            <h1 class="text-3xl text-secondary">BookMarket</h1>
         </div>
 
+    </header>
 
+    <section class=" flex flex-col justify-center items-center mb-5">
+        <h1 class="text-2xl  p-8">Inscription</h1>
 
+        <?php if (isset($error_message)): ?>
+            <p style="color: red;"><?php echo $error_message; ?></p>
+        <?php endif; ?>
 
+        <!-- Formulaire de création de compte -->
+        <form action="create_account.php" method="post" class="flex flex-col w-1/3">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" class="border  rounded w-full" required><br>
 
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p>Vous avez déja un compte ? <a href="login.php">Cliquez pour vous connecté !</a></p>
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" class="border rounded w-full" required><br>
 
+            <label for="telephone">Numéro de téléphone :</label>
+            <input type="text" id="telephone" name="telephone" class="border rounded w-full" required><br>
+
+            <label for="mail">Email :</label>
+            <input type="email" id="mail" name="mail" class="border rounded w-full" required><br>
+
+            <label for="mot_de_passe">Mot de passe :</label>
+            <input type="password" id="password" name="password" class="border
+             rounded w-full" required><br>
+
+            <label for="role">Choisir un rôle :</label>
+            <select id="role" name="role" class="border  rounded w-full" required onchange="toggleEntrepriseFields()">
+                <!-- toggleEntrepriseFields est le nom de la fonction a executer lorque l'evenement onchange est déclenché -->
+                <option value="acheteur">Acheteur</option>
+                <option value="vendeur">Vendeur</option>
+            </select><br>
+
+            <!-- Champ supplémentaire pour les vendeurs -->
+            <div id="extra-fields" class="extra-fields hidden">
+                <label for="nom_entreprise">Nom de l'entreprise :</label>
+                <input type="text" id="nom_entreprise" name="nom_entreprise" class="border  rounded w-full"><br>
+
+                <label for="adresse_entreprise">Adresse de l'entreprise :</label>
+                <input type="text" id="adresse_entreprise" name="adresse_entreprise" class="border  rounded w-full"><br>
+            </div>
+        </form>
+        <button type="submit" class="border rounded px-4 py-2 my-8 hover:text-main hover:underline flex justify-center items-center self-center mx-auto">S'inscrire</button>
+        <p>Vous avez déja un compte ? <a href="login.php" class="hover:text-main hover:underline">Cliquez pour vous connecté !</a></p>
+    </section>
 </body>
 
 </html>

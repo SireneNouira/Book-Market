@@ -8,11 +8,11 @@ class BookMapper implements MapperInterface
             $data['titre'],
             $data['prix'],
             $data['description'],
-            $data['photoPath'],
-            $data['auteurId'],
-            $data['etatId'],
-            $data['vendeurId'],
-            $data['genres'],
+            $data['photo_path'],
+            $data['auteur_id'],
+            $data['etat_id'],
+            $data['id_vendeur'],
+            
         );
     }
 }

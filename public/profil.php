@@ -88,7 +88,7 @@ require_once './partials/header.php';
 
                 <?php
                 if ($user_role == '2') { ?>
-                    <li>Annonces</li>
+                    <li><a href="annonces_vendeur.php">Annonces</a></li>
                     <li>Demandes Clients</li>
                 <?php } else { ?>
                     <li>Liste d'envie</li>

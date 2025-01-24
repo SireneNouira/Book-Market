@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $bookRepository->addBook($book);
 
             // Rediriger après succès
-            header('Location: annonces.php');
+            header('Location: annonces_vendeur.php');
             exit;
         } catch (Exception $e) {
             $error_message = 'Une erreur est survenue : ' . $e->getMessage();

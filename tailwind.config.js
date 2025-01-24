@@ -2,7 +2,9 @@
 module.exports = {
   content: [
     "./public/*.php",
-    "./public/**/*.php"
+    "./public/**/*.php",
+    "./back/*.php",
+    "./back/**/*.php",
   ],
   theme: {
     colors: {
