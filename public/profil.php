@@ -35,11 +35,26 @@ require_once './partials/header.php';
     <div class="flex justify-center bg-main shadow-lg">
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>
-
+    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+        <a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>
+        <!-- Formulaire de recherche -->
+        <form class="  justify-center hidden" action="search.php" method="get">
+            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
+        </form>
+        <ul class="flex flex-col gap-3">
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="home.php">Nouveautés</a></li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/create_account.php">Vendre</a></li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/logout.php">Se deconnecter</a></li>
+        </ul>
+    </div>
     <header class="flex items-center  pt-2">
 
         <div class="pl-5  justify-self-start">
-            <a href="#" aria-label="Menu">
+            <a href="#" aria-label="Menu" id="menu" class="">
                 <box-icon name='menu' color='#a0a0a0'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(160, 160, 160, 1);">
                         <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
@@ -66,6 +81,7 @@ require_once './partials/header.php';
             </div>
         <?php } ?>
     </header>
+
     <main>
 
         <div class="inline-flex items-center justify-between w-full mt-16">
@@ -103,14 +119,14 @@ require_once './partials/header.php';
         </nav>
 
         <article>
-        <?php
-        if ($user_role == '2') { ?>
-           <a href="new-book.php"><box-icon type='solid' name='plus-circle'><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(160, 159, 159, 1)">
-                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
-                    </svg></box-icon>
-            </a> 
-        <?php } ?>
-           
+            <?php
+            if ($user_role == '2') { ?>
+                <a href="new-book.php"><box-icon type='solid' name='plus-circle'><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(160, 159, 159, 1)">
+                            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+                        </svg></box-icon>
+                </a>
+            <?php } ?>
+
 
         </article>
     </main>
