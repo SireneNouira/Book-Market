@@ -18,6 +18,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $genreIds = $bookRepository->getGenreIds($bookId);
             $genreNames = $bookRepository->getGenreNames($genreIds);
             $auteur = $bookRepository->getAuteur($book->getAuteurId());
+            $etatId = $book->getEtatId();
+            $etat = $bookRepository->getEtat($etatId);
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
         }
@@ -121,6 +123,22 @@ require_once './partials/header.php';
             </nav>
         <?php endif; ?>
     </header>
+    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+        <a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>
+        <!-- Formulaire de recherche -->
+        <form class="  justify-center hidden" action="search.php" method="get">
+            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
+        </form>
+        <ul class="flex flex-col gap-3">
+            <a href="home.php"><li class="py-2  pl-4 rounded-sm bg-white">Nouveautés</li></a>
+            <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
+           <a href="new-book.php"><li class="py-2  pl-4 rounded-sm bg-white">Vendre</li></a>
+            <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
+            <a href="../back/logout.php"><li class="py-2  pl-4 rounded-sm bg-white">Se deconnecter</li></a>
+        </ul>
+    </div>
     <section>
         <div class="inline-flex items-center justify-between w-full mt-16">
 
@@ -146,6 +164,7 @@ require_once './partials/header.php';
                 <!-- quand plusieur photos possible, mettre un foreach pour les affichées -->
                 <img class="h-80 w-52" src="./assets/imgs/<?= $book->getPhotoPath() ?>" alt="Photos Livres">
             </div>
+            <p class="text-xl"><?=$etat ?></p>
             <p class="m-2 text-2xl font-semibold"><?= $book->getPrix() ?>$</p>
             <div class="flex gap-2 m-2">
 

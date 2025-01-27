@@ -176,4 +176,22 @@ final  class BookRepository extends AbstractRepository
         }
     }
     
+    public function getEtat(int $etatId): string
+    {
+        try {
+            $stmt = $this->pdo->prepare('SELECT description FROM etats WHERE id = :id');
+            $stmt->bindParam(':id', $etatId, PDO::PARAM_INT);
+    
+            $stmt->execute();
+    
+            $etat = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            return $etat ? $etat['description'] : 'Etat inconnu';
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            echo "Erreur : " . $e->getMessage();
+            return 'Erreur lors de la récupération de l\'état';
+        }
+
+    }
 }

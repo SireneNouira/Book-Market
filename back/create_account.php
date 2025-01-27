@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <!-- Formulaire de création de compte -->
-        <form action="create_account.php" method="post" class="flex flex-col w-1/3">
+        <form action="create_account.php" method='post' class="flex flex-col w-1/3">
             <label for="nom">Nom :</label>
             <input type="text" id="nom" name="nom" class="border  rounded w-full" required><br>
 
@@ -145,9 +145,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="adresse_entreprise">Adresse de l'entreprise :</label>
                 <input type="text" id="adresse_entreprise" name="adresse_entreprise" class="border  rounded w-full"><br>
-            </div>
+            </div><button type="submit" class="border rounded px-4 py-2 my-8 hover:text-main hover:underline flex justify-center items-center self-center mx-auto">S'inscrire</button>
         </form>
-        <button type="submit" class="border rounded px-4 py-2 my-8 hover:text-main hover:underline flex justify-center items-center self-center mx-auto">S'inscrire</button>
+        
         <p>Vous avez déja un compte ? <a href="login.php" class="hover:text-main hover:underline">Cliquez pour vous connecté !</a></p>
     </section>
 </body>

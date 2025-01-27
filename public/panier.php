@@ -1,19 +1,19 @@
 <?php
 include_once '../utils/autoloader.php';
 session_start();
+require '../utils/connect_db.php';
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 $isLoggedIn = isset($_SESSION['user_id']);
-
-
-
 
 
 require_once './partials/header.php';
 ?>
-
-
-<body>
-    <div class="flex justify-center bg-main shadow-lg">
+<body class="bg-gray-100 font-sans">
+<div class="flex justify-center bg-main shadow-lg">
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>
 
@@ -96,90 +96,16 @@ require_once './partials/header.php';
         </ul>
     </div>
 
-    <section>
-        <div class="inline-flex items-center justify-between w-full mt-16">
-
-            <!-- Trait à gauche -->
-            <span class="w-3/12 h-px bg-grey ml-4"></span>
-
-            <!-- Formulaire de recherche -->
-            <form class="flex-1 flex justify-center w-6/12 mx-4 " action="../back/search.php" method="get">
-                <input class="border border-grey rounded text-center px-36" type="text" name="query" placeholder="Rechercher..." value="<?= htmlspecialchars($query ?? '') ?>" required>
-            </form>
-
-            <!-- Trait à droite -->
-            <span class=" w-3/12 h-px bg-grey  mr-4"></span>
-        </div>
-    </section>
-    <section class="w-full flex mt-28">
-        <div class=" w-1/4 pl-10">
-
-            <h2 class="text-2xl pl-4 m-7 font-medium">Filtrer</h2>
-
-            <article class="border border-grey rounded-sm p-6 text-grey">
-                <h3 class="text-xl m-5">Auteurs</h3>
-                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Victor Hugo</li>
-                    <li>Jules Verne</li>
-                    <li>Émile Zola</li>
-                    <li>Honoré de Balzac</li>
-                    <li>Gustave Flaubert</li>
-
-                </ul>
-                <h3 class="text-xl m-5">Genres</h3>
-                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Fantastique</li>
-                    <li>Science-fiction</li>
-                    <li>Policier</li>
-                    <li>Romance</li>
-                    <li>Horreur</li>
-                    <li>Biographie</li>
-                    <li>Histoire</li>
-                    <li>Aventure</li>
-                    <li>Philosophie</li>
-                    <li>Poésie</li>
-                </ul>
-                <h3 class="text-xl m-5">Etat</h3>
-                <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Neuf</li>
-                    <li>Très bon état</li>
-                    <li>Bon état</li>
-                    <li>État correct</li>
-                </ul>
-                <h3 class="text-xl m-5">Prix</h3>
-            </article>
-        </div>
 
 
-        <div class="w-3/4 pl-20 flex flex-col ">
-            <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
-            <div class="flex flex-wrap gap-8 cursor-pointer ">
-                <?php
-                $bookRepository = new BookRepository();
-                $books = $bookRepository->getAllBooks();
+<div class="container mx-auto p-6">
 
-                foreach ($books as $book) {
-                ?>
-                    <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg"><a href="produit.php?id=<?= $book['id'] ?>">
-                            <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
-                            <h3 class="text-xl font-medium text-center pt-2"><?= $book['titre'] ?></h3>
-                            <p class="text-md  text-center"><br> <?php $etatId = $book['etat_id'];
-                            $etat = $bookRepository->getEtat($etatId);?> <?= $etat?></p>
-                        </a>
-                        <p class="text-md text-gray-600 text-center"><br> <?= $book['prix'] ?> €</p></a>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-    </section>
+  <h1 class="text-2xl font-bold text-gray-800 mt-12">Panier</h1>
+  <ul id="panier-list" class="mt-4 space-y-2">
+    <!-- Liste des articles du panier -->
+  </ul>
+</div>
 
-
-
-    <a href="../back/logout.php">Deconnexion</a>
-
-</body>
 
 <?php
 require_once './partials/footer.php';
