@@ -1,8 +1,17 @@
 <?php
 include_once '../utils/autoloader.php';
+require '../utils/connect_db.php';
 session_start();
 
 $isLoggedIn = isset($_SESSION['user_id']);
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";  
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 
 
@@ -74,7 +83,14 @@ require_once './partials/header.php';
         <?php endif; ?>
     </header>
     <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
-        <a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>
+        <?php
+        if(!$isLoggedIn){
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
+        }else{
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="profil.php">Bonjour, '.$user['prenom'].'</a>';
+        }
+        ?>
+      
         <!-- Formulaire de recherche -->
         <form class="  justify-center hidden" action="search.php" method="get">
             <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
@@ -112,68 +128,104 @@ require_once './partials/header.php';
         </div>
     </section>
     <section class="w-full flex mt-28">
-        <div class=" w-1/4 pl-10">
-
-            <h2 class="text-2xl pl-4 m-7 font-medium">Filtrer</h2>
-
+    <div class="w-1/4 pl-10">
+        <h2 class="text-2xl pl-4 m-7 font-medium">Filtrer</h2>
+        <form id="filter-form" method="get" action="home.php">
             <article class="border border-grey rounded-sm p-6 text-grey">
                 <h3 class="text-xl m-5">Auteurs</h3>
                 <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Victor Hugo</li>
-                    <li>Jules Verne</li>
-                    <li>Émile Zola</li>
-                    <li>Honoré de Balzac</li>
-                    <li>Gustave Flaubert</li>
-
+                    <li><input type="checkbox" name="auteurs[]" value="Victor Hugo"> Victor Hugo</li>
+                    <li><input type="checkbox" name="auteurs[]" value="Jules Verne"> Jules Verne</li>
+                    <li><input type="checkbox" name="auteurs[]" value="Émile Zola"> Émile Zola</li>
+                    <li><input type="checkbox" name="auteurs[]" value="Honoré de Balzac"> Honoré de Balzac</li>
+                    <li><input type="checkbox" name="auteurs[]" value="Gustave Flaubert"> Gustave Flaubert</li>
                 </ul>
                 <h3 class="text-xl m-5">Genres</h3>
                 <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Fantastique</li>
-                    <li>Science-fiction</li>
-                    <li>Policier</li>
-                    <li>Romance</li>
-                    <li>Horreur</li>
-                    <li>Biographie</li>
-                    <li>Histoire</li>
-                    <li>Aventure</li>
-                    <li>Philosophie</li>
-                    <li>Poésie</li>
+                    <li><input type="checkbox" name="genres[]" value="Fantastique"> Fantastique</li>
+                    <li><input type="checkbox" name="genres[]" value="Science-fiction"> Science-fiction</li>
+                    <li><input type="checkbox" name="genres[]" value="Policier"> Policier</li>
+                    <li><input type="checkbox" name="genres[]" value="Romance"> Romance</li>
+                    <li><input type="checkbox" name="genres[]" value="Horreur"> Horreur</li>
+                    <li><input type="checkbox" name="genres[]" value="Biographie"> Biographie</li>
+                    <li><input type="checkbox" name="genres[]" value="Histoire"> Histoire</li>
+                    <li><input type="checkbox" name="genres[]" value="Aventure"> Aventure</li>
+                    <li><input type="checkbox" name="genres[]" value="Philosophie"> Philosophie</li>
+                    <li><input type="checkbox" name="genres[]" value="Poésie"> Poésie</li>
                 </ul>
                 <h3 class="text-xl m-5">Etat</h3>
                 <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
-                    <li>Neuf</li>
-                    <li>Très bon état</li>
-                    <li>Bon état</li>
-                    <li>État correct</li>
+                    <li><input type="checkbox" name="etat[]" value="Neuf"> Neuf</li>
+                    <li><input type="checkbox" name="etat[]" value="Très bon état"> Très bon état</li>
+                    <li><input type="checkbox" name="etat[]" value="Bon état"> Bon état</li>
+                    <li><input type="checkbox" name="etat[]" value="État correct"> État correct</li>
                 </ul>
                 <h3 class="text-xl m-5">Prix</h3>
+                <div class="flex flex-col gap-2 pl-14 cursor-pointer">
+                    <label for="prix-min">Min:</label>
+                    <input type="number" id="prix-min" name="prix_min" min="0" step="0.01">
+                    <label for="prix-max">Max:</label>
+                    <input type="number" id="prix-max" name="prix_max" min="0" step="0.01">
+                    <label for="prix-ordre">Ordre:</label>
+                    <select id="prix-ordre" name="prix_ordre">
+                        <option value="asc">Croissant</option>
+                        <option value="desc">Décroissant</option>
+                    </select>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <button type="submit" class="px-4 py-2 bg-vertfonce text-white rounded hover:bg-mainopacity">Appliquer les filtres</button>
+                    <button type="button" onclick="window.location.href='home.php'" class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-mainopacity">
+    Réinitialiser
+</button>
+                </div>
             </article>
+        </form>
+    </div>
+    <div class="w-3/4 pl-20 flex flex-col">
+        <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
+        <div class="flex flex-wrap gap-8 cursor-pointer">
+            <?php
+            $bookRepository = new BookRepository();
+            $filters = [];
+
+            if (!empty($_GET['auteurs'])) {
+                $filters['auteurs'] = $_GET['auteurs'];
+            }
+            if (!empty($_GET['genres'])) {
+                $filters['genres'] = $_GET['genres'];
+            }
+            if (!empty($_GET['etat'])) {
+                $filters['etat'] = $_GET['etat'];
+            }
+            if (!empty($_GET['prix_min'])) {
+                $filters['prix_min'] = $_GET['prix_min'];
+            }
+            if (!empty($_GET['prix_max'])) {
+                $filters['prix_max'] = $_GET['prix_max'];
+            }
+            if (!empty($_GET['prix_ordre'])) {
+                $filters['prix_ordre'] = $_GET['prix_ordre'];
+            }
+
+            $books = $bookRepository->getFilteredBooks($filters);
+
+            foreach ($books as $book) {
+            ?>
+                <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg">
+                    <a href="produit.php?id=<?= $book['id'] ?>">
+                        <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
+                        <h3 class="text-xl font-medium text-center pt-2"><?= $book['titre'] ?></h3>
+                        <p class="text-md text-center"><br> <?php $etatId = $book['etat_id'];
+                        $etat = $bookRepository->getEtat($etatId);?> <?= $etat?></p>
+                    </a>
+                    <p class="text-md text-gray-600 text-center"><br> <?= $book['prix'] ?> €</p>
+                </div>
+            <?php
+            }
+            ?>
         </div>
-
-
-        <div class="w-3/4 pl-20 flex flex-col ">
-            <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
-            <div class="flex flex-wrap gap-8 cursor-pointer ">
-                <?php
-                $bookRepository = new BookRepository();
-                $books = $bookRepository->getAllBooks();
-
-                foreach ($books as $book) {
-                ?>
-                    <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg"><a href="produit.php?id=<?= $book['id'] ?>">
-                            <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
-                            <h3 class="text-xl font-medium text-center pt-2"><?= $book['titre'] ?></h3>
-                            <p class="text-md  text-center"><br> <?php $etatId = $book['etat_id'];
-                            $etat = $bookRepository->getEtat($etatId);?> <?= $etat?></p>
-                        </a>
-                        <p class="text-md text-gray-600 text-center"><br> <?= $book['prix'] ?> €</p></a>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
 
 

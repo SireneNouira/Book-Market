@@ -7,11 +7,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-
+$isLoggedIn = isset($_SESSION['user_id']);
 $user_id = $_SESSION['user_id'];
 
 
-$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";  // Utilisation d'un paramètre nommé avec PDO
+$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";  
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -36,7 +36,13 @@ require_once './partials/header.php';
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>
     <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
-        <a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>
+    <?php
+        if(!$isLoggedIn){
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
+        }else{
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="profil.php">Bonjour, '.$user['prenom'].'</a>';
+        }
+        ?>
         <!-- Formulaire de recherche -->
         <form class="  justify-center hidden" action="search.php" method="get">
             <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>

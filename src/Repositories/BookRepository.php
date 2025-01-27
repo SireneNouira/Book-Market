@@ -194,4 +194,46 @@ final  class BookRepository extends AbstractRepository
         }
 
     }
+public function getFilteredBooks(array $filters): array
+{
+    $query = 'SELECT * FROM livres WHERE 1=1';
+    $params = [];
+
+    if (!empty($filters['auteurs'])) {
+        $auteurs = implode(',', array_fill(0, count($filters['auteurs']), '?'));
+        $query .= " AND auteur_id IN (SELECT id FROM auteurs WHERE nom IN ($auteurs))";
+        $params = array_merge($params, $filters['auteurs']);
+    }
+
+    if (!empty($filters['genres'])) {
+        $genres = implode(',', array_fill(0, count($filters['genres']), '?'));
+        $query .= " AND id IN (SELECT id_livre FROM livre_genre WHERE id_genre IN (SELECT id FROM genres WHERE nom IN ($genres)))";
+        $params = array_merge($params, $filters['genres']);
+    }
+
+    if (!empty($filters['etat'])) {
+        $etats = implode(',', array_fill(0, count($filters['etat']), '?'));
+        $query .= " AND etat_id IN (SELECT id FROM etats WHERE description IN ($etats))";
+        $params = array_merge($params, $filters['etat']);
+    }
+
+    if (!empty($filters['prix_min'])) {
+        $query .= " AND prix >= ?";
+        $params[] = $filters['prix_min'];
+    }
+
+    if (!empty($filters['prix_max'])) {
+        $query .= " AND prix <= ?";
+        $params[] = $filters['prix_max'];
+    }
+
+    if (!empty($filters['prix_ordre'])) {
+        $query .= " ORDER BY prix " . strtoupper($filters['prix_ordre']);
+    }
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
