@@ -12,6 +12,20 @@
     --text-primary: 0, 0, 0;
     --grey: 122, 122, 122;
     --white: 255, 255, 255;
+    --red: 255, 0, 0;
   }
 }
 
+.scroll-container {
+  width: 50%; 
+  height: 600px; 
+  overflow-y: scroll;
+  scrollbar-width: none; 
+  border: 1px solid rgb(143, 143, 143);
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}

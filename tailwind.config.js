@@ -16,9 +16,18 @@ module.exports = {
       black: "rgb(var(--text-primary))",
       grey:  "rgb(var(--grey))",
       white: "rgb(var(--white))",
+      red: "rgb(var(--red))",
     },
     extend: {
       fontFamily: { sans: ['"Bacasime Antique"', "serif"] },
+      scrollbar: {
+        none: {
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          'scrollbar-width': 'none',
+        },
+      },
     },
     plugins: [],
   },

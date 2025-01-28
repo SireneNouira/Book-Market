@@ -169,7 +169,7 @@ require_once './partials/header.php';
             <div class="flex gap-2 m-2">
 
                 <button class="px-1 text-xl font-semibold border border-grey rounded-md">Acheter</button>
-                <button class="px-1 text-xl font-semibold border border-grey rounded-md">Ajouter au panier</button>
+                <form action="../back/add_to_cart.php?id=<?= $bookId?>" method="post"><button class="px-1 text-xl font-semibold border border-grey rounded-md">Ajouter au panier</button></form>
             </div>
         </div>
         <div class="w-1/2 h-auto py-5 px-8 flex flex-col border border-grey">

@@ -8,12 +8,16 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 $isLoggedIn = isset($_SESSION['user_id']);
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
 
 
 require_once './partials/header.php';
 ?>
+
 <body class="bg-gray-100 font-sans">
-<div class="flex justify-center bg-main shadow-lg">
+    <div class="flex justify-center bg-main shadow-lg">
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>
 
@@ -98,14 +102,36 @@ require_once './partials/header.php';
 
 
 
-<div class="container mx-auto p-6">
+    <div class="container mx-auto p-6">
 
-  <h1 class="text-2xl font-bold text-gray-800 mt-12">Panier</h1>
-  <ul id="panier-list" class="mt-4 space-y-2">
-    <!-- Liste des articles du panier -->
-  </ul>
-</div>
+        <h1 class="text-2xl font-bold text-gray-800 mt-12">Panier</h1>
 
+        <?php if (empty($_SESSION['cart'])): ?>
+            <p>Votre panier est vide.</p>
+            <?php else: ?>
+                <div class="scroll-container">
+                <?php foreach ($_SESSION['cart'] as $item): ?>
+
+           
+
+                <ul id="panier-list" class="mt-4 ">
+
+                <div class="flex place-content-between bg-white p-4 rounded-lg shadow-lg items-center text-2xl">
+                    <li><img class="w-20" src="./assets/imgs/<?= $item['path'] ?>" alt="picture Item"></li>
+                    <li><?= htmlspecialchars($item['name']) ?></li>
+                    <li><?= htmlspecialchars($item['price']) ?> €</li>
+                    <li><?= htmlspecialchars($item['quantity']) ?></li> 
+                    <button href="../back/remove_from_cart.php?id=<?= $item['id'] ?>" class=" text-xl bg-red hover:bg-grey text-white font-bold py-1 px-2 rounded">Supprimer</button>
+                </div>
+
+                </ul>
+           
+                <?php endforeach; ?></div>
+            <?php endif; ?>
+            </div>
+
+</body>
 
 <?php
+
 require_once './partials/footer.php';
