@@ -3,16 +3,18 @@ include_once '../utils/autoloader.php';
 require '../utils/connect_db.php';
 session_start();
 
-$isLoggedIn = isset($_SESSION['user_id']);
-// if (!$isLoggedIn) {
-//     $user_id = $_SESSION['user_id'];
-// }
-$sql = "SELECT * FROM utilisateurs WHERE id = :user_id";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':user_id', $isLoggedIn, PDO::PARAM_INT);
-$stmt->execute();
 
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$isLoggedIn = isset($_SESSION['user_id']);
+$user = null;
+
+if ($isLoggedIn) {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM utilisateurs WHERE id = :user_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 
 
@@ -130,11 +132,16 @@ require_once './partials/header.php';
         </div>
     </section>
     <section class="w-full flex mt-28">
-        <div class="w-1/4 pl-10">
-            <h2 class="text-2xl pl-4 m-7 font-medium">Filtrer</h2>
+
+        <!-- Formulaire de filtre -->
+
+
+
+        <aside class="w-1/4 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Filtrer</h2>
             <form id="filter-form" method="get" action="home.php">
-                <article class="border border-grey rounded-sm p-6 text-grey">
-                    <h3 class="text-xl m-5">Auteurs</h3>
+                <div class="mb-4">
+                <h3 class="text-xl m-5">Auteurs</h3>
                     <ul class="flex flex-col gap-2 pl-14 cursor-pointer">
                         <li><input type="checkbox" name="auteurs[]" value="Victor Hugo"> Victor Hugo</li>
                         <li><input type="checkbox" name="auteurs[]" value="Jules Verne"> Jules Verne</li>
@@ -180,9 +187,9 @@ require_once './partials/header.php';
                             Réinitialiser
                         </button>
                     </div>
-                </article>
             </form>
-        </div>
+        </aside>
+
         <div class="w-3/4 pl-20 flex flex-col">
             <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
             <div class="flex flex-wrap gap-8 cursor-pointer">

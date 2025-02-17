@@ -10,17 +10,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-
 $sql = "SELECT * FROM utilisateurs WHERE id = :user_id";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
 if ($user) {
-
     $user_nom = $user['nom'];
     $user_prenom = $user['prenom'];
     $user_role = $user['id_role'];
@@ -40,7 +36,6 @@ if (!$vendeur) {
 }
 
 $id_vendeur = $vendeur['id'];
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titre = trim($_POST['titre']);
@@ -81,117 +76,91 @@ $auteurs = $auteurRepository->getAllAuteurs();
 require_once './partials/header.php';
 ?>
 
-<body>
-    <div class="flex justify-center bg-main shadow-lg">
-        <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
+<body class="bg-gray-100">
+    <div class="flex justify-center bg-main shadow-lg py-2">
+        <p class="text-sm text-vertfonce">Achats et Ventes de Livres d'Occasions</p>
     </div>
 
-    <header class="flex items-center  pt-2">
-
-        <div class="pl-5  justify-self-start">
+    <header class="flex items-center pt-4 px-4">
+        <div class="pl-5">
             <a href="#" aria-label="Menu">
-                <box-icon name='menu' color='#a0a0a0'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(160, 160, 160, 1);">
-                        <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
-                    </svg>
-                </box-icon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(160, 160, 160, 1);">
+                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+                </svg>
             </a>
         </div>
-
-        <div class="flex absolute justify-center w-full ">
+        <div class="flex justify-center w-full">
             <h1 class="text-2xl text-secondary">BookMarket</h1>
         </div>
-
-
     </header>
 
-    <main>
-
-        <div class="inline-flex items-center justify-between w-full mt-16">
-
-            <!-- Trait à gauche -->
-            <span class="w-3/12 h-px bg-grey ml-4"></span>
-
-            <div class=" flex-1 flex justify-center w-6/12 p-4 mx-40 bg-mainopacity rounded-sm shadow-2xl">
-                <h2 class="text-xl text-vertfonce"> <?= $user_nom . " " . $user_prenom; ?> </h2>
+    <main class="container mx-auto px-4 py-8">
+        <div class="inline-flex items-center justify-between w-full mt-8">
+            <span class="w-3/12 h-px bg-gray-300"></span>
+            <div class="flex-1 flex justify-center w-6/12 p-4 mx-4 bg-mainopacity rounded-sm shadow-2xl">
+                <h2 class="text-xl text-vertfonce"><?= $user_nom . " " . $user_prenom; ?></h2>
             </div>
-
-            <!-- Trait à droite -->
-            <span class=" w-3/12 h-px bg-grey  mr-4"></span>
+            <span class="w-3/12 h-px bg-gray-300"></span>
         </div>
 
-        <h1>Ajouter une annonce de livre</h1>
-        <form action="new-book.php" method="post" enctype="multipart/form-data">
-            <!-- Champ pour le titre -->
-            <label for="titre">Titre du livre :</label>
-            <input type="text" id="titre" name="titre" required><br>
+        <h1 class="text-3xl font-bold text-center my-8">Ajouter une annonce de livre</h1>
+        <form action="new-book.php" method="post" enctype="multipart/form-data" class="bg-white p-8 rounded-lg shadow-lg">
+            <?php if (isset($error_message)): ?>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+                    <span class="block sm:inline"><?= $error_message ?></span>
+                </div>
+            <?php endif; ?>
 
-            <!-- Champ pour le prix -->
-            <label for="prix">Prix (€) :</label>
-            <input type="number" id="prix" name="prix" step="0.01" min="0" required><br>
+            <div class="mb-4">
+                <label for="titre" class="block text-gray-700">Titre du livre :</label>
+                <input type="text" id="titre" name="titre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+            </div>
 
-            <!-- Champ pour la description -->
-            <label for="description">Description :</label><br>
-            <textarea id="description" name="description" rows="5" cols="50" required></textarea><br>
+            <div class="mb-4">
+                <label for="prix" class="block text-gray-700">Prix (€) :</label>
+                <input type="number" id="prix" name="prix" step="0.01" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+            </div>
 
-            <!-- Champ pour la photo -->
-            <label for="photo">Photo :</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required><br>
+            <div class="mb-4">
+                <label for="description" class="block text-gray-700">Description :</label>
+                <textarea id="description" name="description" rows="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required></textarea>
+            </div>
 
-            <!-- Liste déroulante pour les auteurs -->
-            <label for="auteur">Auteur :</label>
-            <select id="auteur" name="auteur_id" required>
-                <option value="" disabled selected>Choisissez un auteur</option>
-                <option value="1">Victor Hugo</option>
-                <option value="2">Jules Verne</option>
-                <option value="3">Émile Zola</option>
-                <option value="4">Honoré de Balzac</option>
-                <option value="5">Gustave Flaubert</option>
-            </select><br>
+            <div class="mb-4">
+                <label for="photo" class="block text-gray-700">Photo :</label>
+                <input type="file" id="photo" name="photo" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+            </div>
 
-            <!-- Liste déroulante pour l'état -->
-            <label for="etat">État du livre :</label>
-            <select id="etat" name="etat_id" required>
-                <option value="" disabled selected>Choisissez l'état</option>
-                <option value="1">Neuf</option>
-                <option value="2">Très bon état</option>
-                <option value="3">Bon état</option>
-                <option value="4">État correct</option>
-            </select><br>
+            <div class="mb-4">
+                <label for="auteur" class="block text-gray-700">Auteur :</label>
+                <select id="auteur" name="auteur_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                    <option value="" disabled selected>Choisissez un auteur</option>
+                    <?php foreach ($auteurs as $auteur): ?>
+                        <option value="<?= $auteur['id'] ?>"><?= $auteur['nom'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-            <!-- Liste de genres avec checkboxes, conteneur défilable et limite de sélection -->
-            <label for="genres">Genres :</label>
-            <div id="genres-container" class="max-h-36 overflow-y-scroll border border-gray-300 rounded p-2 mb-4">
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="1" class="genre-checkbox mr-2"> Science-fiction
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="2" class="genre-checkbox mr-2"> Fantastique
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="3" class="genre-checkbox mr-2"> Policier
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="4" class="genre-checkbox mr-2"> Romance
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="5" class="genre-checkbox mr-2"> Horreur
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="6" class="genre-checkbox mr-2"> Biographie
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="7" class="genre-checkbox mr-2"> Histoire
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="8" class="genre-checkbox mr-2"> Aventure
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="9" class="genre-checkbox mr-2"> Philosophie
-                </label>
-                <label class="block">
-                    <input type="checkbox" name="genres[]" value="10" class="genre-checkbox mr-2"> Poésie
-                </label>
+            <div class="mb-4">
+                <label for="etat" class="block text-gray-700">État du livre :</label>
+                <select id="etat" name="etat_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                    <option value="" disabled selected>Choisissez l'état</option>
+                    <option value="1">Neuf</option>
+                    <option value="2">Très bon état</option>
+                    <option value="3">Bon état</option>
+                    <option value="4">État correct</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="genres" class="block text-gray-700">Genres :</label>
+                <div id="genres-container" class="max-h-36 overflow-y-auto border border-gray-300 rounded p-2">
+                    <?php foreach ($genres as $genre): ?>
+                        <label class="block">
+                            <input type="checkbox" name="genres[]" value="<?= $genre['id'] ?>" class="genre-checkbox mr-2"> <?= $genre['nom'] ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <script>
@@ -202,22 +171,23 @@ require_once './partials/header.php';
                             const checkedCount = document.querySelectorAll('.genre-checkbox:checked').length;
                             if (checkedCount >= 3) {
                                 checkboxes.forEach(cb => {
-                                    if (!cb.checked) cb.disabled = true; // Désactiver les cases non sélectionnées
+                                    if (!cb.checked) cb.disabled = true;
                                 });
                             } else {
-                                checkboxes.forEach(cb => cb.disabled = false); // Réactiver toutes les cases
+                                checkboxes.forEach(cb => cb.disabled = false);
                             }
                         });
                     });
                 });
             </script>
 
-            <!-- Bouton de soumission -->
-            <button type="submit">Ajouter le livre</button>
+            <div class="flex justify-center mt-8">
+                <button type="submit" class="bg-main text-vertfonce px-6 py-2 rounded-lg hover:bg-mainopacity transition duration-300">Ajouter le livre</button>
+            </div>
         </form>
-
     </main>
 </body>
 
 <?php
 require_once './partials/footer.php';
+?>

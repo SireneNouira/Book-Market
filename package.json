@@ -2,7 +2,7 @@
   "name": "book-market",
   "version": "1.0.0",
   "description": "��#\u0000 \u0000B\u0000o\u0000o\u0000k\u0000-\u0000M\u0000a\u0000r\u0000k\u0000e\u0000t\u0000\r\u0000 \u0000",
-  "main": "./front/index.php",
+  "main": "./public/home.php",
   "scripts": {
     "build": "npx tailwindcss -i ./public/styles/style.css -o ./public/styles/output.css --watch"
   },
@@ -11,7 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17"
   }
 }

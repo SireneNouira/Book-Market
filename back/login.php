@@ -30,6 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = 'Aucun utilisateur trouvé avec cet email.';
     }
 }
+$isLoggedIn = isset($_SESSION['user_id']);
+$user = null;
+
+if ($isLoggedIn) {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM utilisateurs WHERE id = :user_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 ?>
 <!DOCTYPE html>
@@ -64,13 +75,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </a>
         </div>
         <div class=" flex absolute justify-center w-full">
-            <h1 class="text-3xl text-secondary">BookMarket</h1>
+            <h1 class="text-3xl text-red-500">BookMarket</h1>
         </div>
 
     </header>
 
 
+    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+        <?php
+        if (!$isLoggedIn) {
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
+        } else {
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="profil.php">Bonjour, ' . $user['prenom'] . '</a>';
+        }
+        ?>
 
+        <!-- Formulaire de recherche -->
+        <form class="  justify-center hidden" action="search.php" method="get">
+            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
+        </form>
+        <ul class="flex flex-col gap-3">
+            <a href="home.php">
+                <li class="py-2  pl-4 rounded-sm bg-white">Nouveautés</li>
+            </a>
+            <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
+            <a href="new-book.php">
+                <li class="py-2  pl-4 rounded-sm bg-white">Vendre</li>
+            </a>
+            <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
+            <a href="../back/logout.php">
+                <li class="py-2  pl-4 rounded-sm bg-white">Se deconnecter</li>
+            </a>
+        </ul>
+    </div>
 
     <section class=" flex flex-col justify-center items-center mx-80 ">
         <h1 class="text-2xl p-8">Identifiez-vous</h1>

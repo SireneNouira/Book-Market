@@ -35,28 +35,6 @@ require_once './partials/header.php';
     <div class="flex justify-center bg-main shadow-lg">
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>
-    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
-    <?php
-        if(!$isLoggedIn){
-            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
-        }else{
-            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="profil.php">Bonjour, '.$user['prenom'].'</a>';
-        }
-        ?>
-        <!-- Formulaire de recherche -->
-        <form class="  justify-center hidden" action="search.php" method="get">
-            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
-        </form>
-        <ul class="flex flex-col gap-3">
-            <li class="py-2  pl-4 rounded-sm bg-white"><a href="home.php">Nouveautés</a></li>
-            <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
-            <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
-            <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
-            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/create_account.php">Vendre</a></li>
-            <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
-            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/logout.php">Se deconnecter</a></li>
-        </ul>
-    </div>
     <header class="flex items-center  pt-2">
 
         <div class="pl-5  justify-self-start">
@@ -87,7 +65,28 @@ require_once './partials/header.php';
             </div>
         <?php } ?>
     </header>
-
+    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+    <?php
+        if(!$isLoggedIn){
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
+        }else{
+            echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="profil.php">Bonjour, '.$user['prenom'].'</a>';
+        }
+        ?>
+        <!-- Formulaire de recherche -->
+        <form class="  justify-center hidden" action="search.php" method="get">
+            <input class="border border-grey rounded text-center " type="text" name="query" placeholder="Rechercher..." required>
+        </form>
+        <ul class="flex flex-col gap-3">
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="home.php">Nouveautés</a></li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Genres</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Auteurs</li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Petit Prix</li>
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/create_account.php">Vendre</a></li>
+            <li class="py-2  pl-4 rounded-sm bg-white">Assistance</li>
+            <li class="py-2  pl-4 rounded-sm bg-white"><a href="../back/logout.php">Se deconnecter</a></li>
+        </ul>
+    </div>
     <main>
 
         <div class="inline-flex items-center justify-between w-full mt-16">
