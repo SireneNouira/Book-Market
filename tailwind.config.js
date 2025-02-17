@@ -7,28 +7,30 @@ module.exports = {
     "./back/**/*.php",
   ],
   theme: {
-    colors: {
-      main: "rgb(var(--color-primary))",
-      mainMenu: "rgba(var(--color-primary-opacity))",
-      mainopacity: "rgba(var(--color-opacity))",
-      secondary: "rgb(var(--color-secondary))",
-      vertfonce: "rgb(var(--color-vertfonce))",
-      black: "rgb(var(--text-primary))",
-      grey:  "rgb(var(--grey))",
-      white: "rgb(var(--white))",
-      // red: "rgb(var(--red))",
-    },
     extend: {
-      fontFamily: { sans: ['"Bacasime Antique"', "serif"] },
+      colors: {
+        main: "rgb(var(--color-primary))",
+        mainMenu: "rgba(var(--color-primary-opacity))",
+        mainopacity: "rgba(var(--color-opacity))",
+        secondary: "rgb(var(--color-secondary))",
+        vertfonce: "rgb(var(--color-vertfonce))",
+        black: "rgb(var(--text-primary))",
+        grey: "rgb(var(--grey))",
+        white: "rgb(var(--white))",
+        // red: "rgb(var(--red))",
+      },
+      fontFamily: {
+        sans: ['Helvetica', 'Arial', 'sans-serif'], // Police moderne et simple
+      },
       scrollbar: {
         none: {
-          '&::-webkit-scrollbar': {
-            display: 'none',
+          "&::-webkit-scrollbar": {
+            display: "none",
           },
-          'scrollbar-width': 'none',
+          "scrollbar-width": "none",
         },
       },
     },
-    plugins: [],
   },
+  plugins: [], // Les plugins doivent être ici, en dehors de `theme`
 };
