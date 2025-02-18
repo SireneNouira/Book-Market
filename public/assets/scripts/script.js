@@ -31,3 +31,7 @@ document.addEventListener("click", (event) => {
         sidebar.classList.remove("flex");
     }
 });
+
+console.log(menuIcon);
+console.log(sidebar);
+

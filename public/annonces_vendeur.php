@@ -75,8 +75,8 @@ require_once './partials/header.php';
                     <p class="text-gray-600 mb-4 overflow-hidden"><?php echo htmlspecialchars($book['description']); ?></p>
                     <p class="text-lg font-bold text-blue-600"><?php echo htmlspecialchars($book['prix']); ?> €</p>
                     <div class="mt-4">
-                        <a href="/edit-book/<?php echo htmlspecialchars($book['id']); ?>" class="text-blue-500 hover:text-blue-700 mr-2">Modifier</a>
-                        <a href="/delete-book/<?php echo htmlspecialchars($book['id']); ?>" class="text-red-500 hover:text-red-700">Supprimer</a>
+                        <a href="../back/edit_book.php?id=<?php echo htmlspecialchars($book['id']); ?>" class="text-blue-500 hover:text-blue-700 mr-2">Modifier</a>
+                        <a href="../back/delete_book.php?id=<?php echo htmlspecialchars($book['id']); ?>" class="text-red-500 hover:text-red-700">Supprimer</a>
                     </div>
                 </div>
             </div>

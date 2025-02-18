@@ -121,8 +121,9 @@ require_once './partials/header.php';
                     <li><?= htmlspecialchars($item['name']) ?></li>
                     <li><?= htmlspecialchars($item['price']) ?> €</li>
                     <li><?= htmlspecialchars($item['quantity']) ?></li> 
-                    <button href="../back/remove_from_cart.php?id=<?= $item['id'] ?>" class=" text-xl bg-red hover:bg-grey text-white font-bold py-1 px-2 rounded">Supprimer</button>
-                </div>
+                    <a href="../back/remove_from_cart.php?id=<?= $item['id'] ?>" class="text-xl bg-red-500 hover:bg-red-700 font-bold py-1 px-2 rounded text-white no-underline">
+    Supprimer
+</a>                </div>
 
                 </ul>
            

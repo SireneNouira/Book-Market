@@ -25,7 +25,9 @@ require_once './partials/header.php';
 ?>
 
 
-<body>
+<body style="background-image: url('./assets/imgs/fondbg.webp'); background-size: contain; background-repeat: no-repeat; background-position: right; background-attachment: fixed;">
+
+
     <div class="flex justify-center bg-main shadow-lg">
         <p class="text-sm text-vertfonce flex items-center">Achats et Ventes de Livres d'Occasions</p>
     </div>

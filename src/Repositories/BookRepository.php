@@ -236,4 +236,35 @@ public function getFilteredBooks(array $filters): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function updateBook($book_id, $titre, $prix, $description, $photo, $auteurId, $etatId, $genres) {
+    // Mettre à jour les informations du livre
+    $sql = "UPDATE livres SET titre = :titre, prix = :prix, description = :description, photo = :photo, id_auteur = :auteurId, id_etat = :etatId WHERE id = :book_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        'titre' => $titre,
+        'prix' => $prix,
+        'description' => $description,
+        'photo' => $photo,
+        'auteurId' => $auteurId,
+        'etatId' => $etatId,
+        'book_id' => $book_id
+    ]);
+
+    // Mettre à jour les genres associés
+    $this->updateBookGenres($book_id, $genres);
+}
+
+private function updateBookGenres($book_id, $genres) {
+    // Supprimer les anciennes associations de genres
+    $sql = "DELETE FROM livres_genres WHERE id_livre = :book_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['book_id' => $book_id]);
+
+    // Ajouter les nouvelles associations de genres
+    $sql = "INSERT INTO livres_genres (id_livre, id_genre) VALUES (:book_id, :genre_id)";
+    $stmt = $this->pdo->prepare($sql);
+    foreach ($genres as $genre_id) {
+        $stmt->execute(['book_id' => $book_id, 'genre_id' => $genre_id]);
+    }
+}
 }
