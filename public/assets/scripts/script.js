@@ -32,6 +32,11 @@ document.addEventListener("click", (event) => {
     }
 });
 
-console.log(menuIcon);
-console.log(sidebar);
+const fermerSidebar = document.querySelector(".fermerSidebar");
+
+fermerSidebar.addEventListener("click", () => {
+      sidebar.classList.add("hidden");
+      menuIcon.classList.remove("hidden");
+      sidebar.classList.remove("flex");
+});
 

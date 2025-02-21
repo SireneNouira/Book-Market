@@ -44,12 +44,12 @@ require_once './partials/header.php';
             </a>
         </div>
         <div class=" flex-1 flex justify-center w-6/12 ">
-            <h1 class="text-3xl text-secondary">BookMarket</h1>
+            <h1 class="text-3xl text-secondary max-sm:text-xl">BookMarket</h1>
         </div>
 
 
         <?php if (!$isLoggedIn): ?>
-            <nav class="flex pr-5 w-3/12 justify-end text-grey">
+            <nav class="flex pr-5 w-3/12 justify-end text-grey max-sm:hidden">
                 <a href="../back/login.php">Connexion/S'inscrire</a>
             </nav>
         <?php else: ?>
@@ -88,7 +88,7 @@ require_once './partials/header.php';
             </nav>
         <?php endif; ?>
     </header>
-    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8">
+    <div id="sidebar" class="hidden bg-mainMenu  flex-col left-0 fixed top-0 pt-10 w-1/4 h-full text-2xl gap-5 px-8 max-sm:w-full">
         <?php
         if (!$isLoggedIn) {
             echo '<a class="border py-2 flex justify-center rounded-sm mb-2" href="../back/login.php">Bonjour, Identifiez-vous</a>';
@@ -115,6 +115,7 @@ require_once './partials/header.php';
             <a href="../back/logout.php">
                 <li class="py-2  pl-4 rounded-sm bg-white">Se deconnecter</li>
             </a>
+            <li class="fermerSidebar py-2  pl-4 rounded-sm bg-white">Fermer</li>
         </ul>
     </div>
 
@@ -122,24 +123,22 @@ require_once './partials/header.php';
         <div class="inline-flex items-center justify-between w-full mt-16">
 
             <!-- Trait à gauche -->
-            <span class="w-3/12 h-px bg-grey ml-4"></span>
+            <span class="w-3/12 h-px bg-grey ml-4 max-sm:hidden"></span>
 
             <!-- Formulaire de recherche -->
             <form class="flex-1 flex justify-center w-6/12 mx-4 " action="../back/search.php" method="get">
-                <input class="border border-grey rounded text-center px-36" type="text" name="query" placeholder="Rechercher..." value="<?= htmlspecialchars($query ?? '') ?>" required>
+                <input class="border border-grey rounded text-center px-36 max-sm:px-16" type="text" name="query" placeholder="Rechercher..." value="<?= htmlspecialchars($query ?? '') ?>" required>
             </form>
 
             <!-- Trait à droite -->
-            <span class=" w-3/12 h-px bg-grey  mr-4"></span>
+            <span class=" w-3/12 h-px bg-grey  mr-4 max-sm:hidden"></span>
         </div>
     </section>
     <section class="w-full flex mt-28">
 
         <!-- Formulaire de filtre -->
 
-
-
-        <aside class="w-1/4 bg-white p-6 rounded-lg shadow-md">
+        <aside class="w-1/4 bg-white p-6 rounded-lg shadow-md max-sm:hidden">
             <h2 class="text-xl font-semibold mb-4">Filtrer</h2>
             <form id="filter-form" method="get" action="home.php">
                 <div class="mb-4">
@@ -192,9 +191,9 @@ require_once './partials/header.php';
             </form>
         </aside>
 
-        <div class="w-3/4 pl-20 flex flex-col">
-            <h1 class="text-3xl font-medium pb-14">Nouveautés</h1>
-            <div class="flex flex-wrap gap-8 cursor-pointer">
+        <div class="w-3/4 pl-20 flex flex-col max-sm:pl-0 max-sm:w-full max-sm:gap-5 max-sm:p-2">
+            <h1 class="text-3xl font-medium pb-14 max-sm:text-2xl">Nouveautés</h1>
+            <div class="flex flex-wrap gap-8 cursor-pointer max-sm:gap-0 max-sm:m-5">
                 <?php
                 $bookRepository = new BookRepository();
                 $filters = [];
@@ -222,14 +221,14 @@ require_once './partials/header.php';
 
                 foreach ($books as $book) {
                 ?>
-                    <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg">
+                    <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-lg max-sm:w-1/2 max-sm:p-2 max-sm:gap-0 max-sm:h-60  ">
                         <a href="produit.php?id=<?= $book['id'] ?>">
-                            <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg">
-                            <h3 class="text-xl font-medium text-center pt-2"><?= $book['titre'] ?></h3>
-                            <p class="text-md text-center"><br> <?php $etatId = $book['etat_id'];
+                            <img src="<?= "./assets/imgs/" . $book['photo_path'] ?>" alt="Photo Livre" class="w-full h-80 object-cover rounded-lg shadow-lg max-sm:h-28 ">
+                            <h3 class="text-xl font-medium text-center pt-2 max-sm:text-sm max-sm:pt-0"><?= $book['titre'] ?></h3>
+                            <p class="text-md text-center max-sm:text-[10px] "><br> <?php $etatId = $book['etat_id'];
                                                                 $etat = $bookRepository->getEtat($etatId); ?> <?= $etat ?></p>
                         </a>
-                        <p class="text-md text-gray-600 text-center"><br> <?= $book['prix'] ?> €</p>
+                        <p class="text-md text-gray-600 text-center max-sm:text-[10px] "><br> <?= $book['prix'] ?> €</p>
                     </div>
                 <?php
                 }
