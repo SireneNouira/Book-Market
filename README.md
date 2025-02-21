@@ -2,7 +2,7 @@
 
 ![Book-Market](https://img.shields.io/badge/Project-Book_Market-%23333)  
 **Technologies utilisées** : PHP POO, MySQL, TailwindCSS
-** A venir ** API, Symony
+**A venir** API, Symony
 
 ## 📚 Description
 
