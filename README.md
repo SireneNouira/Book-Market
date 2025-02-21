@@ -1,7 +1,8 @@
 # Book-Market - Vente et Achat de Livres d'Occasion
 
 ![Book-Market](https://img.shields.io/badge/Project-Book_Market-%23333)  
-**Technologies utilisées** : PHP POO, Symfony, MySQL, TailwindCSS
+**Technologies utilisées** : PHP POO, MySQL, TailwindCSS
+** A venir ** API, Symony
 
 ## 📚 Description
 
